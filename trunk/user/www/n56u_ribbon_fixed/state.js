@@ -1453,21 +1453,6 @@ function inputCtrl(obj, flag) {
 	obj.disabled = (flag == 0);
 }
 
-function IsPC() {
-	var userAgentInfo = navigator.userAgent;
-	var Agents = ["Android", "iPhone",
-		"SymbianOS", "Windows Phone",
-		"iPad", "iPod"];
-	var flag = true;
-	for (var v = 0; v < Agents.length; v++) {
-		if (userAgentInfo.indexOf(Agents[v]) > 0) {
-			flag = false;
-			break;
-		}
-	}
-	return flag;
-}
-
 // add eagle23
 jQuery(document).ready(function () {
 	var $j = jQuery.noConflict();
