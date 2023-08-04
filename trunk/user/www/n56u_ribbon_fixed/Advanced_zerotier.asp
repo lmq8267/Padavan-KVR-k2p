@@ -202,7 +202,7 @@ function showMRULESList(){
 							<div>
 							    <ul class="nav nav-tabs" style="margin-bottom: 10px;">
 								<li id="allink" style="display:none">
-								    <a href="Advanced_aliddns.asp">Lucky</a>
+								    <a href="Advanced_aliddns.asp">阿里ddns</a>
 								</li>
 								<li id="dtolink" style="display:none">
 								    <a href="Advanced_ddnsto.asp"><#menu5_32_2#></a>
