@@ -475,8 +475,8 @@ struct nvram_pair router_defaults[] = {
 #if defined(APP_ALIDDNS)
 	/* Aliddns */
 	{ "aliddns_enable", "0" },
-	{ "aliddns_interval", "0" },
-	{ "aliddns_ttl", "-c /etc/storage/lucky/lucky.conf" },
+	{ "aliddns_interval", "600" },
+	{ "aliddns_ttl", "600" },
 	{ "aliddns_ak", ""  },
 	{ "aliddns_sk", "" },
 	{ "aliddns_name", "" },
