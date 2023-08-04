@@ -355,9 +355,15 @@ EOF
 #ip6tables -P INPUT ACCEPT
 #ip6tables -P OUTPUT ACCEPT
 #ip6tables -P FORWARD ACCEPT
+
 ### ipv6防火墙单独规则 开放3389远程桌面 其它端口按下方规则添加 以下把#去掉则生效
 #ip6tables -I FORWARD -p tcp --dport 3389 -j ACCEPT
 #ip6tables -I FORWARD -p tcp --dport 8829 -j ACCEPT
+
+#开启ipv6以后设备上网慢 卡顿？试试去掉下方两条代码前的#，启用
+#iptables -t mangle -A FORWARD -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu
+#ip6tables -t mangle -A FORWARD -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu
+
 EOF
 		chmod 755 "$script_postf"
 	fi
