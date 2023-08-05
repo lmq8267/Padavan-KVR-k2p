@@ -5,7 +5,7 @@ url1="$2"
 url2="$3"
 check_n="$4"
 check_lines="$5"
-
+user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36'
 wget_err=""
 curl_err=""
 
