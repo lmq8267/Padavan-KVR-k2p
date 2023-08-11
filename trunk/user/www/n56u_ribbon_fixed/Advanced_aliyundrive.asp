@@ -134,7 +134,7 @@ function done_validating(action){
 									<p>Alist 一个支持多种存储的文件列表程序，由 Gin 和 Solidjs 提供支持。
 									<p>项目地址：<a href="https://github.com/alist-org/alist" target="blank">https://github.com/alist-org/alist</a><p>
                     注意：没有插USB存储设备的，在主页进行修改alist的设置过后，请手动在系统管理-控制台输入 aliyundrive-webdav.sh save  来保存配置文件，防止断电数据未保存。<p>
-如忘记密码可在控制台或ssh输入 aliyundrive-webdav.sh admin 获取密码
+如忘记密码可在控制台或ssh输入 aliyundrive-webdav.sh admin 重置密码 或 aliyundrive-webdav.sh set 新密码 修改为新密码
 									</div>
 
 
