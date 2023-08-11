@@ -241,6 +241,7 @@ echo "${config}" >${Alistjson}
    [ -z "$alist_ver" ] &&  logger -t "AList" "程序不完整，重新下载..." && rm -rf "$alist" && sleep 10 && alist_down
    [ ! -z "$alist_ver" ] && logger -t "AList" "当前$alist 版本$alist_ver,准备启动"
    if [ ! -f "/tmp/alist/data/data.db" ] ; then
+   cd /tmp/alist
     [ ! -d /tmp/alist/data ] && mkdir -p /tmp/alist/data
     rm -rf /tmp/alist/data/admin.account
     "$alist" admin >>/tmp/alist/data/admin.account 2>&1
@@ -412,6 +413,7 @@ echo "${config}" >${Alistjson}
    chmod 777 "$alist"
    [ ! -d /tmp/alist/data ] && mkdir -p /tmp/alist/data
  if [ ! -f "$upanPath/alist/data/data.db" ] ; then
+ cd /tmp/alist
     [ ! -d /tmp/alist/data ] && mkdir -p /tmp/alist/data
     rm -rf /tmp/alist/data/admin.account
     "$alist" admin >>/tmp/alist/data/admin.account 2>&1
