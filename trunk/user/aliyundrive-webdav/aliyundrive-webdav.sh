@@ -490,6 +490,3 @@ admin)
 	;;
 esac
 
-	alist_restart &
-	;;
-esac
