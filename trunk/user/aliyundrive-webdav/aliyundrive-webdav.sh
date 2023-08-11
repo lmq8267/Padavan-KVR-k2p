@@ -181,11 +181,11 @@ echo "${config}" >${Alistjson}
       [ -s "$(which curl)" ] && curl -L -k -S -o  "$alist"  --connect-timeout 10 --retry 3 "https://fastly.jsdelivr.net/gh/lmq8267/alist@master/install/$tag/alist"
       [ ! -s "$(which curl)" ] && wget --no-check-certificate -O "$alist" "https://fastly.jsdelivr.net/gh/lmq8267/alist@master/install/$tag/alist"
       else
-      logger -t "AList" "未获取到最新版,开始下载备用版本alist_v3.23.0..."
-      [ -s "$(which curl)" ] && curl -L -k -S -o  /tmp/alist/MD5.txt  --connect-timeout 10 --retry 3 https://fastly.jsdelivr.net/gh/lmq8267/alist@master/install/3.23.0/MD5.txt
-      [ ! -s "$(which curl)" ] && wget --no-check-certificate -O /tmp/alist/MD5.txt https://fastly.jsdelivr.net/gh/lmq8267/alist@master/install/3.23.0/MD5.txt 
-      [ -s "$(which curl)" ] && curl -L -k -S -o  "$alist"  --connect-timeout 10 --retry 3 "https://fastly.jsdelivr.net/gh/lmq8267/alist@master/install/3.23.0/alist"
-      [ ! -s "$(which curl)" ] && wget --no-check-certificate -O "$alist" "https://fastly.jsdelivr.net/gh/lmq8267/alist@master/install/3.23.0/alist"
+      logger -t "AList" "未获取到最新版,开始下载备用版本alist_v3.25.1..."
+      [ -s "$(which curl)" ] && curl -L -k -S -o  /tmp/alist/MD5.txt  --connect-timeout 10 --retry 3 https://fastly.jsdelivr.net/gh/lmq8267/alist@master/install/3.25.1/MD5.txt
+      [ ! -s "$(which curl)" ] && wget --no-check-certificate -O /tmp/alist/MD5.txt https://fastly.jsdelivr.net/gh/lmq8267/alist@master/install/3.25.1/MD5.txt 
+      [ -s "$(which curl)" ] && curl -L -k -S -o  "$alist"  --connect-timeout 10 --retry 3 "https://fastly.jsdelivr.net/gh/lmq8267/alist@master/install/3.25.1/alist"
+      [ ! -s "$(which curl)" ] && wget --no-check-certificate -O "$alist" "https://fastly.jsdelivr.net/gh/lmq8267/alist@master/install/3.25.1/alist"
       fi
       if [ -s "$alist" ] && [ -s /tmp/alist/MD5.txt ]; then
          alistmd5="$(cat /tmp/alist/MD5.txt)"
@@ -211,10 +211,10 @@ echo "${config}" >${Alistjson}
           [ -s "$(which curl)" ] && curl -L -k -S -o  /tmp/alist/alist.tar.gz  --connect-timeout 10 --retry 3 https://github.com/lmq8267/alist/releases/download/$tag/alist.tar.gz
           [ ! -s "$(which curl)" ] && wget --no-check-certificate -O /tmp/alist/alist.tar.gz https://github.com/lmq8267/alist/releases/download/$tag/alist.tar.gz
           else
-          [ -s "$(which curl)" ] && curl -L -k -S -o  /tmp/alist/MD5.txt  --connect-timeout 10 --retry 3 https://github.com/lmq8267/alist/releases/download/3.23.0/MD5.txt
-          [ ! -s "$(which curl)" ] && wget --no-check-certificate -O /tmp/alist/MD5.txt https://github.com/lmq8267/alist/releases/download/3.23.0/MD5.txt 
-          [ -s "$(which curl)" ] && curl -L -k -S -o  /tmp/alist/alist.tar.gz  --connect-timeout 10 --retry 3 https://github.com/lmq8267/alist/releases/download/3.23.0/alist.tar.gz
-          [ ! -s "$(which curl)" ] && wget --no-check-certificate -O /tmp/alist/alist.tar.gz https://github.com/lmq8267/alist/releases/download/3.23.0/alist.tar.gz
+          [ -s "$(which curl)" ] && curl -L -k -S -o  /tmp/alist/MD5.txt  --connect-timeout 10 --retry 3 https://github.com/lmq8267/alist/releases/download/3.25.1/MD5.txt
+          [ ! -s "$(which curl)" ] && wget --no-check-certificate -O /tmp/alist/MD5.txt https://github.com/lmq8267/alist/releases/download/3.25.1/MD5.txt 
+          [ -s "$(which curl)" ] && curl -L -k -S -o  /tmp/alist/alist.tar.gz  --connect-timeout 10 --retry 3 https://github.com/lmq8267/alist/releases/download/3.25.1/alist.tar.gz
+          [ ! -s "$(which curl)" ] && wget --no-check-certificate -O /tmp/alist/alist.tar.gz https://github.com/lmq8267/alist/releases/download/3.25.1/alist.tar.gz
          fi
 	 if [ -s /tmp/alist/alist.tar.gz ] && [ -s /tmp/alist/MD5.txt ]; then
          alitarmd5="$(cat /tmp/alist/MD5.txt)"
@@ -242,11 +242,12 @@ echo "${config}" >${Alistjson}
    [ ! -z "$alist_ver" ] && logger -t "AList" "当前$alist 版本$alist_ver,准备启动"
    if [ ! -f "/tmp/alist/data/data.db" ] ; then
     [ ! -d /tmp/alist/data ] && mkdir -p /tmp/alist/data
-    "$alist" --data /tmp/alist/data admin >/tmp/alist/data/admin.account 2>&1
-    user=$(cat /tmp/alist/data/admin.account | grep -E "^username" | awk '{print $2}')
-    pass=$(cat /tmp/alist/data/admin.account | grep -E "^password" | awk '{print $2}')
+    rm -rf /tmp/alist/data/admin.account
+    "$alist" admin >>/tmp/alist/data/admin.account 2>&1
+    user=$(cat /tmp/alist/data/admin.account | grep "username" | awk -F 'username:' '{print $2}' | tr -d " ")
+    pass=$(cat /tmp/alist/data/admin.account | grep "password is" | awk -F 'password is:' '{print $2}' | tr -d " ")
     [ -n "$user" ] && logger -t "AList" "检测到首次启动alist，初始用户:$user  初始密码:$pass"
-    [ ! -n "$user" ] && logger -t "AList" "检测到首次启动alist，生成初始用户密码失败" && logger -t "AList" "请在控制台或ssh里输入aliyundrive-webdav.sh admin获取密码"
+    [ ! -n "$user" ] && logger -t "AList" "检测到首次启动alist，生成初始用户密码失败" && logger -t "AList" "请在控制台输入aliyundrive-webdav.sh admin显示密码"
     fi
     alist_port="$(cat /tmp/alist/data/config.json | grep http_port | awk '{print $2}' | awk 'NR==1 {print $1}' | tr -d "," )"
    [ -z "$alist_port" ] && alist_port="$(cat /tmp/alist/data/config.json | grep port | awk '{print $2}' | awk 'NR==1 {print $1}' | tr -d "," )"
@@ -350,11 +351,11 @@ echo "${config}" >${Alistjson}
 	  [ -s "$(which curl)" ] && curl -L -k -S -o "$upanPath/alist/md5.txt" --connect-timeout 10 --retry 3 "https://github.com/alist-org/alist/releases/download/$tag/md5.txt"
 	  [ ! -s "$(which curl)" ] && wget --no-check-certificate -O "$upanPath/alist/md5.txt" "https://github.com/alist-org/alist/releases/download/$tag/md5.txt"
           else
-	  logger -t "AList" "获取到最新版本失败, 开始下载备用版本alist_v3.23.0"
-	  [ -s "$(which curl)" ] && curl -L -k -S -o "$upanPath/alist/alist-linux-musl-mipsle.tar.gz" --connect-timeout 10 --retry 3 "https://github.com/alist-org/alist/releases/download/v3.23.0/alist-linux-musl-mipsle.tar.gz"
-	  [ ! -s "$(which curl)" ] && wget --no-check-certificate -O "$upanPath/alist/alist-linux-musl-mipsle.tar.gz" "https://github.com/alist-org/alist/releases/download/v3.23.0/alist-linux-musl-mipsle.tar.gz"
-	  [ -s "$(which curl)" ] && curl -L -k -S -o "$upanPath/alist/md5.txt" --connect-timeout 10 --retry 3 "https://github.com/alist-org/alist/releases/download/v3.23.0/md5.txt"
-	  [ ! -s "$(which curl)" ] && wget --no-check-certificate -O "$upanPath/alist/md5.txt" "https://github.com/alist-org/alist/releases/download/v3.23.0/md5.txt"
+	  logger -t "AList" "获取到最新版本失败, 开始下载备用版本alist_v3.25.1"
+	  [ -s "$(which curl)" ] && curl -L -k -S -o "$upanPath/alist/alist-linux-musl-mipsle.tar.gz" --connect-timeout 10 --retry 3 "https://github.com/alist-org/alist/releases/download/v3.25.1/alist-linux-musl-mipsle.tar.gz"
+	  [ ! -s "$(which curl)" ] && wget --no-check-certificate -O "$upanPath/alist/alist-linux-musl-mipsle.tar.gz" "https://github.com/alist-org/alist/releases/download/v3.25.1/alist-linux-musl-mipsle.tar.gz"
+	  [ -s "$(which curl)" ] && curl -L -k -S -o "$upanPath/alist/md5.txt" --connect-timeout 10 --retry 3 "https://github.com/alist-org/alist/releases/download/v3.25.1/md5.txt"
+	  [ ! -s "$(which curl)" ] && wget --no-check-certificate -O "$upanPath/alist/md5.txt" "https://github.com/alist-org/alist/releases/download/v3.25.1/md5.txt"
       fi
    if [ -s "$upanPath/alist/md5.txt" ] && [ -s "$upanPath/alist/alist-linux-musl-mipsle.tar.gz" ] ; then
       aliMD5="$(cat $upanPath/alist/md5.txt | grep musl-mipsle | awk '{print $1}')"
@@ -412,11 +413,12 @@ echo "${config}" >${Alistjson}
    [ ! -d /tmp/alist/data ] && mkdir -p /tmp/alist/data
  if [ ! -f "$upanPath/alist/data/data.db" ] ; then
     [ ! -d /tmp/alist/data ] && mkdir -p /tmp/alist/data
-    "$alist" --data /tmp/alist/data admin >/tmp/alist/data/admin.account 2>&1
-    user=$(cat /tmp/alist/data/admin.account | grep -E "^username" | awk '{print $2}')
-    pass=$(cat /tmp/alist/data/admin.account | grep -E "^password" | awk '{print $2}')
+    rm -rf /tmp/alist/data/admin.account
+    "$alist" admin >>/tmp/alist/data/admin.account 2>&1
+    user=$(cat /tmp/alist/data/admin.account | grep "username" | awk -F 'username:' '{print $2}' | tr -d " ")
+    pass=$(cat /tmp/alist/data/admin.account | grep "password is" | awk -F 'password is:' '{print $2}' | tr -d " ")
     [ -n "$user" ] && logger -t "AList" "检测到首次启动alist，初始用户:$user  初始密码:$pass"
-    [ ! -n "$user" ] && logger -t "AList" "检测到首次启动alist，生成初始用户密码失败" && logger -t "AList" "请在控制台或ssh里输入aliyundrive-webdav.sh admin获取密码"
+    [ ! -n "$user" ] && logger -t "AList" "检测到首次启动alist，生成初始用户密码失败" && logger -t "AList" "请在控制台输入aliyundrive-webdav.sh admin显示密码"
  fi
  alist_port="$(cat /tmp/alist/data/config.json | grep http_port | awk '{print $2}' | awk 'NR==1 {print $1}' | tr -d "," )"
 [ -z "$alist_port" ] && alist_port="$(cat /tmp/alist/data/config.json | grep port | awk '{print $2}' | awk 'NR==1 {print $1}' | tr -d "," )"
@@ -428,12 +430,7 @@ echo "${config}" >${Alistjson}
  [ -z "`pidof alist`" ] && logger -t "AList" "主程序启动失败, 10 秒后自动尝试重新启动" && sleep 10 && alist_restart 
 
 fi
-    ;;
-    *)
-      kill_ald ;;
-  esac
-
-
+exit 0
 }
 kill_ald() {
 	aliyundrive_process=$(pidof alist)
@@ -466,16 +463,33 @@ restart)
 save)
 	alist_save
 	;;
+set)
+    cd /tmp/alist
+    [ ! -d /tmp/alist/data ] && mkdir -p /tmp/alist/data
+    echo "alist密码更改为 $2 "
+    "$alist" admin set $2
+	;;
 admin)
     cd /tmp/alist
     [ ! -d /tmp/alist/data ] && mkdir -p /tmp/alist/data
-    "$alist" --data /tmp/alist/data admin >/tmp/alist/data/admin.account 2>&1
-    user=$(cat /tmp/alist/data/admin.account | grep -E "^username" | awk '{print $2}')
-    pass=$(cat /tmp/alist/data/admin.account | grep -E "^password" | awk '{print $2}')
+    rm -rf /tmp/alist/data/admin.account
+    "$alist" admin >>/tmp/alist/data/admin.account 2>&1
+    user=$(cat /tmp/alist/data/admin.account | grep "username" | awk -F 'username:' '{print $2}' | tr -d " ")
+    pass=$(cat /tmp/alist/data/admin.account | grep "password is" | awk -F 'password is:' '{print $2}' | tr -d " ")
+    if [ -z "$pass" ] ; then
+    rm -rf /tmp/alist/data/admin.account
+    "$alist" admin random >>/tmp/alist/data/admin.account 2>&1
+    user=$(cat /tmp/alist/data/admin.account | grep "username" | awk -F 'username:' '{print $2}' | tr -d " " )
+    pass=$(cat /tmp/alist/data/admin.account | grep "password" | awk -F 'password:' '{print $2}' | tr -d " " )
+    fi
     echo "用户名: $user  密码: $pass"
     [ -n "$user" ] && logger -t "alist" "用户名: $user  密码: $pass"
 	;;
 *)
+	alist_restart
+	;;
+esac
+
 	alist_restart &
 	;;
 esac
