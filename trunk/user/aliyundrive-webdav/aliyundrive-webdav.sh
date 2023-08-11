@@ -430,7 +430,10 @@ echo "${config}" >${Alistjson}
  [ -z "`pidof alist`" ] && logger -t "AList" "主程序启动失败, 10 秒后自动尝试重新启动" && sleep 10 && alist_restart 
 
 fi
-exit 0
+;;
+    *)
+      kill_ald ;;
+  esac
 }
 kill_ald() {
 	aliyundrive_process=$(pidof alist)
