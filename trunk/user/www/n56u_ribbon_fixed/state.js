@@ -968,18 +968,19 @@ function checkTime(i) {
 	return i;
 }
 
-function show_loading_obj() {
-	var $j = jQuery.noConflict();
-	var code = '<center><div id="loadingBlock" class="loadingBlock">';
+function show_loading_obj(){
+	var code = '';
+
+	code += '<center><div id="loadingBlock" class="loadingBlock">';
 	code += '<div class="container-fluid">';
-	code += '<div class="well">';
-	code += '<div class="progress progress-striped active"><div class="bar" id="proceeding_bar"><span id="proceeding_txt"></span></div></div>';
+	code += '<div class="well" style="background-color: #212121; width: 60%;">';
+	code += '<div class="progress progress-striped active" style="width: 50%; text-align: left;"><div class="bar" id="proceeding_bar" style="width: 0%;"><span id="proceeding_txt"></span></div></div>';
 	code += '<span id="proceeding_main_txt"><#Main_alert_proceeding_desc4#></span></span>';
 	code += '</div>';
 	code += '</div>';
 	code += '</div></center>';
 
-	$j("#Loading").html(code);
+	$("Loading").innerHTML = code;
 	id_check_status = setTimeout('hideLoading();', 3000);
 }
 
