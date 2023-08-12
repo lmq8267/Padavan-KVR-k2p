@@ -47,8 +47,7 @@ function initial(){
 	show_footer();
 }
 function button_ald_port(){
-		var port = '5244';
-		var porturl ='http://' + window.location.hostname + ":" + port;
+		var porturl ='http://' + window.location.hostname + ":" + "<% nvram_get_x("","ald_port"); %>";
 		//alert(porturl);
 		window.open(porturl,'ald_port');
 }
