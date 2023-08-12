@@ -437,6 +437,11 @@ fi
       kill_ald ;;
   esac
 }
+alist_down {
+alenb=`nvram get aliyundrive_enable`
+    [ "$alenb" != "1" ] && stop_ald && exit 0
+    start_ald
+}
 kill_ald() {
 	aliyundrive_process=$(pidof alist)
 	if [ -n "$aliyundrive_process" ]; then
