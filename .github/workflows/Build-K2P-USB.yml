@@ -31,7 +31,7 @@ jobs:
         mkdir -p /opt/images/
     - name: Build Firmware
       env:
-        TNAME: K2P-USB
+        TNAME: NEWIFI3
         KERNEL: 3.4
       run: |
         cd /opt/rt-n56u/trunk
