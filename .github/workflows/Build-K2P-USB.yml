@@ -25,7 +25,7 @@ jobs:
       env:
         KERNEL: 3.4
       run: |
-        git clone --depth=1 https://github.com/lmq8267/Padavan-KVR-k2p.git /opt/rt-n56u
+        git clone -b newifi3 https://github.com/lmq8267/Padavan-KVR-k2p.git /opt/rt-n56u
         cd /opt/rt-n56u/toolchain-mipsel
         sh dl_toolchain.sh
         mkdir -p /opt/images/
@@ -44,31 +44,12 @@ jobs:
         #因不同型号配置功能不一样，所以先把配置项删除，如果你自己要添加其他的，也要写上删除这一条，切记！！！
         ################################################################################################
         
-        sed -i '/CONFIG_FIRMWARE_INCLUDE_ZEROTIER/d' .config #删除配置项zerotier
-        sed -i '/CONFIG_FIRMWARE_INCLUDE_CADDY/d' .config #删除配置项zerotier
-        sed -i '/CONFIG_FIRMWARE_INCLUDE_SMARTDNS/d' .config #删除配置项zerotier
-        sed -i '/CONFIG_FIRMWARE_INCLUDE_ADGUARDHOME/d' .config #删除配置项zerotier
-        sed -i '/CONFIG_FIRMWARE_INCLUDE_WYY/d' .config #删除配置项zerotier
-        sed -i '/CONFIG_FIRMWARE_INCLUDE_ALIDDNS/d' .config #删除配置项zerotier
-        sed -i '/CONFIG_FIRMWARE_INCLUDE_DDNSTO/d' .config #删除配置项zerotier
-        sed -i '/CONFIG_FIRMWARE_INCLUDE_ALDRIVER/d' .config #删除配置项zerotier
+        
         
         ######################################################################
         #以下选项是定义你需要的功能（y=集成,n=忽略），重新写入到.config文件
         ######################################################################
         
-        echo "CONFIG_FIRMWARE_INCLUDE_ZEROTIER=y" >> .config #zerotier ~1.3M
-        echo "CONFIG_FIRMWARE_INCLUDE_CADDY=y" >> .config #删除配置项zerotier
-        echo "CONFIG_FIRMWARE_INCLUDE_SMARTDNS=y" >> .config #删除配置项zerotier
-        echo "CONFIG_FIRMWARE_INCLUDE_ADGUARDHOME=y" >> .config #删除配置项zerotier
-        echo "CONFIG_FIRMWARE_INCLUDE_WYY=y" >> .config #删除配置项zerotier
-        echo "CONFIG_FIRMWARE_INCLUDE_ALIDDNS=y" >> .config #删除配置项zerotier
-        echo "CONFIG_FIRMWARE_INCLUDE_DDNSTO=y" >> .config #删除配置项zerotier
-        echo "CONFIG_FIRMWARE_INCLUDE_ALDRIVER=y" >> .config #删除配置项zerotier
-        echo "CONFIG_FIRMWARE_INCLUDE_SHADOWSOCKS=n" >> .config #删除配置项zerotier
-        echo "CONFIG_FIRMWARE_INCLUDE_V2RAY=n" >> .config #删除配置项zerotier
-        echo "CONFIG_FIRMWARE_INCLUDE_TROJAN=n" >> .config #删除配置项zerotier
-        echo "CONFIG_FIRMWARE_INCLUDE_SSOBFS=n" >> .config #删除配置项zerotier
         #########################################################################################
         #自定义添加其它功能请参考源码configs/templates/目录下的config文件。按照上面的格式添加即可
         #格式如下：
@@ -82,5 +63,5 @@ jobs:
       uses: actions/upload-artifact@master
       if: always()
       with:
-        name: Padavan-KVR-K2P-USB
+        name: Padavan-KVR-newifi3
         path: /opt/images
