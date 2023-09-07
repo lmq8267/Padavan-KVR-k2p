@@ -9,9 +9,9 @@ obj-m += crypto_wq.o
 
 obj-$(CONFIG_CRYPTO_FIPS) += fips.o
 
-crypto_algapi-m += proc.o
+crypto_algapi-$(CONFIG_PROC_FS) += proc.o
 crypto_algapi-y := algapi.o scatterwalk.o $(crypto_algapi-y)
-obj-m += crypto_algapi.o
+obj-$(CONFIG_CRYPTO_ALGAPI2) += crypto_algapi.o
 
 obj-m += aead.o
 
@@ -87,9 +87,9 @@ obj-m += krng.o
 obj-m += ansi_cprng.o
 obj-m += tcrypt.o
 obj-m += ghash-generic.o
-obj-m += af_alg.o
-obj-m += algif_hash.o
-obj-m += algif_skcipher.o
+obj-$(CONFIG_CRYPTO_USER_API) += af_alg.o
+obj-$(CONFIG_CRYPTO_USER_API_HASH) += algif_hash.o
+obj-$(CONFIG_CRYPTO_USER_API_SKCIPHER) += algif_skcipher.o
 
 #
 # generic algorithms and the async_tx api
