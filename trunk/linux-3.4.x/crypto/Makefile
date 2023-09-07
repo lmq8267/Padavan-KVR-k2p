@@ -2,97 +2,97 @@
 # Cryptographic API
 #
 
-obj-$(CONFIG_CRYPTO) += crypto.o
+obj-m += crypto.o
 crypto-y := api.o cipher.o compress.o
 
-obj-$(CONFIG_CRYPTO_WORKQUEUE) += crypto_wq.o
+obj-m += crypto_wq.o
 
-obj-$(CONFIG_CRYPTO_FIPS) += fips.o
+obj-m += fips.o
 
-crypto_algapi-$(CONFIG_PROC_FS) += proc.o
+crypto_algapi-m += proc.o
 crypto_algapi-y := algapi.o scatterwalk.o $(crypto_algapi-y)
-obj-$(CONFIG_CRYPTO_ALGAPI2) += crypto_algapi.o
+obj-m += crypto_algapi.o
 
-obj-$(CONFIG_CRYPTO_AEAD2) += aead.o
+obj-m += aead.o
 
 crypto_blkcipher-y := ablkcipher.o
 crypto_blkcipher-y += blkcipher.o
-obj-$(CONFIG_CRYPTO_BLKCIPHER2) += crypto_blkcipher.o
-obj-$(CONFIG_CRYPTO_BLKCIPHER2) += chainiv.o
-obj-$(CONFIG_CRYPTO_BLKCIPHER2) += eseqiv.o
-obj-$(CONFIG_CRYPTO_SEQIV) += seqiv.o
+obj-m += crypto_blkcipher.o
+obj-m += chainiv.o
+obj-m += eseqiv.o
+obj-m += seqiv.o
 
 crypto_hash-y += ahash.o
 crypto_hash-y += shash.o
-obj-$(CONFIG_CRYPTO_HASH2) += crypto_hash.o
+obj-m += crypto_hash.o
 
-obj-$(CONFIG_CRYPTO_PCOMP2) += pcompress.o
+obj-m += pcompress.o
 
 cryptomgr-y := algboss.o testmgr.o
 
-obj-$(CONFIG_CRYPTO_MANAGER2) += cryptomgr.o
-obj-$(CONFIG_CRYPTO_USER) += crypto_user.o
-obj-$(CONFIG_CRYPTO_HMAC) += hmac.o
-obj-$(CONFIG_CRYPTO_VMAC) += vmac.o
-obj-$(CONFIG_CRYPTO_XCBC) += xcbc.o
-obj-$(CONFIG_CRYPTO_NULL) += crypto_null.o
-obj-$(CONFIG_CRYPTO_MD4) += md4.o
-obj-$(CONFIG_CRYPTO_MD5) += md5.o
-obj-$(CONFIG_CRYPTO_RMD128) += rmd128.o
-obj-$(CONFIG_CRYPTO_RMD160) += rmd160.o
-obj-$(CONFIG_CRYPTO_RMD256) += rmd256.o
-obj-$(CONFIG_CRYPTO_RMD320) += rmd320.o
-obj-$(CONFIG_CRYPTO_SHA1) += sha1_generic.o
-obj-$(CONFIG_CRYPTO_SHA256) += sha256_generic.o
-obj-$(CONFIG_CRYPTO_SHA512) += sha512_generic.o
-obj-$(CONFIG_CRYPTO_WP512) += wp512.o
-obj-$(CONFIG_CRYPTO_TGR192) += tgr192.o
-obj-$(CONFIG_CRYPTO_GF128MUL) += gf128mul.o
-obj-$(CONFIG_CRYPTO_ECB) += ecb.o
-obj-$(CONFIG_CRYPTO_CBC) += cbc.o
-obj-$(CONFIG_CRYPTO_PCBC) += pcbc.o
-obj-$(CONFIG_CRYPTO_CTS) += cts.o
-obj-$(CONFIG_CRYPTO_LRW) += lrw.o
-obj-$(CONFIG_CRYPTO_XTS) += xts.o
-obj-$(CONFIG_CRYPTO_CTR) += ctr.o
-obj-$(CONFIG_CRYPTO_GCM) += gcm.o
-obj-$(CONFIG_CRYPTO_CCM) += ccm.o
-obj-$(CONFIG_CRYPTO_PCRYPT) += pcrypt.o
-obj-$(CONFIG_CRYPTO_CRYPTD) += cryptd.o
-obj-$(CONFIG_CRYPTO_DES) += des_generic.o
-obj-$(CONFIG_CRYPTO_FCRYPT) += fcrypt.o
-obj-$(CONFIG_CRYPTO_BLOWFISH) += blowfish_generic.o
-obj-$(CONFIG_CRYPTO_BLOWFISH_COMMON) += blowfish_common.o
-obj-$(CONFIG_CRYPTO_TWOFISH) += twofish_generic.o
-obj-$(CONFIG_CRYPTO_TWOFISH_COMMON) += twofish_common.o
-obj-$(CONFIG_CRYPTO_SERPENT) += serpent_generic.o
-obj-$(CONFIG_CRYPTO_AES) += aes_generic.o
-obj-$(CONFIG_CRYPTO_CAMELLIA) += camellia_generic.o
-obj-$(CONFIG_CRYPTO_CAST5) += cast5.o
-obj-$(CONFIG_CRYPTO_CAST6) += cast6.o
-obj-$(CONFIG_CRYPTO_ARC4) += arc4.o
-obj-$(CONFIG_CRYPTO_TEA) += tea.o
-obj-$(CONFIG_CRYPTO_KHAZAD) += khazad.o
-obj-$(CONFIG_CRYPTO_ANUBIS) += anubis.o
-obj-$(CONFIG_CRYPTO_SEED) += seed.o
-obj-$(CONFIG_CRYPTO_SALSA20) += salsa20_generic.o
-obj-$(CONFIG_CRYPTO_DEFLATE) += deflate.o
-obj-$(CONFIG_CRYPTO_ZLIB) += zlib.o
-obj-$(CONFIG_CRYPTO_MICHAEL_MIC) += michael_mic.o
-obj-$(CONFIG_CRYPTO_CRC32C) += crc32c.o
-obj-$(CONFIG_CRYPTO_AUTHENC) += authenc.o authencesn.o
-obj-$(CONFIG_CRYPTO_LZO) += lzo.o
-obj-$(CONFIG_CRYPTO_RNG2) += rng.o
-obj-$(CONFIG_CRYPTO_RNG2) += krng.o
-obj-$(CONFIG_CRYPTO_ANSI_CPRNG) += ansi_cprng.o
-obj-$(CONFIG_CRYPTO_TEST) += tcrypt.o
-obj-$(CONFIG_CRYPTO_GHASH) += ghash-generic.o
-obj-$(CONFIG_CRYPTO_USER_API) += af_alg.o
-obj-$(CONFIG_CRYPTO_USER_API_HASH) += algif_hash.o
-obj-$(CONFIG_CRYPTO_USER_API_SKCIPHER) += algif_skcipher.o
+obj-m += cryptomgr.o
+obj-m += crypto_user.o
+obj-m += hmac.o
+obj-m += vmac.o
+obj-m += xcbc.o
+obj-m += crypto_null.o
+obj-m += md4.o
+obj-m += md5.o
+obj-m += rmd128.o
+obj-m += rmd160.o
+obj-m += rmd256.o
+obj-m += rmd320.o
+obj-m += sha1_generic.o
+obj-m += sha256_generic.o
+obj-m += sha512_generic.o
+obj-m += wp512.o
+obj-m += tgr192.o
+obj-m += gf128mul.o
+obj-m += ecb.o
+obj-m += cbc.o
+obj-m += pcbc.o
+obj-m += cts.o
+obj-m += lrw.o
+obj-m += xts.o
+obj-m += ctr.o
+obj-m += gcm.o
+obj-m += ccm.o
+obj-m += pcrypt.o
+obj-m += cryptd.o
+obj-m += des_generic.o
+obj-m += fcrypt.o
+obj-m += blowfish_generic.o
+obj-m += blowfish_common.o
+obj-m += twofish_generic.o
+obj-m += twofish_common.o
+obj-m += serpent_generic.o
+obj-m += aes_generic.o
+obj-m += camellia_generic.o
+obj-m += cast5.o
+obj-m += cast6.o
+obj-m += arc4.o
+obj-m += tea.o
+obj-m += khazad.o
+obj-m += anubis.o
+obj-m += seed.o
+obj-m += salsa20_generic.o
+obj-m += deflate.o
+obj-m += zlib.o
+obj-m += michael_mic.o
+obj-m += crc32c.o
+obj-m += authenc.o authencesn.o
+obj-m += lzo.o
+obj-m += rng.o
+obj-m += krng.o
+obj-m += ansi_cprng.o
+obj-m += tcrypt.o
+obj-m += ghash-generic.o
+obj-m += af_alg.o
+obj-m += algif_hash.o
+obj-m += algif_skcipher.o
 
 #
 # generic algorithms and the async_tx api
 #
-obj-$(CONFIG_XOR_BLOCKS) += xor.o
-obj-$(CONFIG_ASYNC_CORE) += async_tx/
+obj-m += xor.o
+obj-m += async_tx/
