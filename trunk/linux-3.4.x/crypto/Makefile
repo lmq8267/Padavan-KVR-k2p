@@ -7,7 +7,7 @@ crypto-y := api.o cipher.o compress.o
 
 obj-m += crypto_wq.o
 
-obj-m += fips.o
+obj-$(CONFIG_CRYPTO_FIPS) += fips.o
 
 crypto_algapi-m += proc.o
 crypto_algapi-y := algapi.o scatterwalk.o $(crypto_algapi-y)
