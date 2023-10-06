@@ -9,14 +9,15 @@ frps="/tmp/frp/frps"
 [ ! -d /tmp/frp ] && mkdir -p /tmp/frp
 check_frp () 
 {
-[ "$frpc_enable" != "1" ] && frp_close
-[ "$frps_enable" != "1" ] && frp_close
-        [ ! -d /tmp/frp ] && mkdir -p /tmp/frp
-	check_net
-	result_net=$?
-	if [ "$result_net" = "1" ] ;then
- logger -t "frp" "正在启动frp"
-		if [ -z "`pidof frpc`" ] && [ "$frpc_enable" = "1" ];then
+#[ "$frpc_enable" != "1" ] && frp_close
+#[ "$frps_enable" != "1" ] && frp_close
+[ ! -d /tmp/frp ] && mkdir -p /tmp/frp
+check_net
+result_net=$?
+if [ "$result_net" = "1" ] ;then
+if [ -z "`pidof frpc`" ] && [ "$frpc_enable" = "1" ];then
+ logger -t "frp" "正在启动frpc"
+killall frpc
   sed -i '/frpc/d' /etc/storage/cron/crontabs/$http_username
   frp_ver=$(cat /etc/storage/frp_script.sh | grep frp_version | awk -F '=' '{print $2}' | tr -d 'v' | tr -d ' ') && [ ! -z $frp_ver ] && frp_ver="0.51.2"
   if [ ! -f $frpc ] ;then
@@ -41,8 +42,10 @@ check_frp ()
   fi
   [ ! -f $frpc ] && logger -t "frp" "反复下载失败，20秒后重试" && sleep 20 && check_dl
 			frp_start
-		fi
-		if [ -z "`pidof frps`" ] && [ "$frps_enable" = "1" ];then
+fi
+if [ -z "`pidof frps`" ] && [ "$frps_enable" = "1" ];then
+killall frps
+ logger -t "frp" "正在启动frps"
   sed -i '/frps/d' /etc/storage/cron/crontabs/$http_username
    frp_ver=$(cat /etc/storage/frp_script.sh | grep frp_version | awk -F '=' '{print $2}' | tr -d 'v' | tr -d ' ') && [ ! -z $frp_ver ] && frp_ver="0.51.2"
   if [ ! -f $frps ] ;then
@@ -68,7 +71,7 @@ check_frp ()
   [ ! -f $frps ] && logger -t "frp" "反复下载失败，20秒后重试" && sleep 20 && check_dl
 			frp_start
 		fi
-	fi
+fi
 }
 check_dl() 
 {
@@ -90,6 +93,7 @@ frp_start ()
 frpc_tag="`$frpc --version`"
 frps_tag="`$frps --version`"
 	/etc/storage/frp_script.sh
+ sleep 8
  if [ "$frpc_enable" = "1" ];then
 	sed -i '/frpc/d' /etc/storage/cron/crontabs/$http_username
 	cat >> /etc/storage/cron/crontabs/$http_username << EOF
