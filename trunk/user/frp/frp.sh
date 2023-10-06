@@ -5,7 +5,7 @@ http_username=`nvram get http_username`
 frpc="/tmp/frp/frpc"
 frps="/tmp/frp/frps"
 [ -f /etc/storage/frpc ] && frpc="/etc/storage/frpc"
-[ -f /etc/storage/frps ] && frpc="/etc/storage/frps"
+[ -f /etc/storage/frps ] && frps="/etc/storage/frps"
 [ ! -d /tmp/frp ] && mkdir -p /tmp/frp
 check_frp () 
 {
